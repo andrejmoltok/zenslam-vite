@@ -1,0 +1,38 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model poem {
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  title        String
+  content      String
+  authorId     String
+  tags         String[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  totalVotes   Int       @default(0)
+  averageScore Float?    @default(0)
+  votes        vote[]    @relation("PoemVotes")
+}
+
+model vote {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  poemId    String   @db.ObjectId
+  poem      poem     @relation("PoemVotes", fields: [poemId], references: [id])
+  userId    String
+  score     Int
+  createdAt DateTime @default(now())
+
+  @@unique([userId, poemId])
+}

@@ -1,0 +1,142 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  display: grid;
+  grid-template-rows: 50px 1fr 50px;
+  grid-template-columns: 1fr;
+  height: 100vh;
+}
+
+#root {
+  padding: 50px clamp(5px, 17vw, 300px) 50px;
+  max-width: 1920px;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #ede8db;
+  color: #3a405a;
+}
+
+.high__bar {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 50px;
+  margin: 0 auto;
+  padding-left: 0;
+  list-style-type: none;
+  gap: 27px;
+}
+
+.low__bar {
+  margin: 0 auto;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  height: 50px;
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+}
+
+.low__bar-li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border: 2px solid #fb8500ff;
+  color: #fb8500ff;
+  background-color: #023047ff;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: 'Courier New', Courier, monospace;
+  text-decoration: none;
+  cursor: pointer;
+  width: 880px;
+  height: 50px;
+  border-radius: 10px;
+  font-weight: 700;
+}
+
+.low__bar-li > span {
+  display: flex;
+  justify-content: space-evenly;
+  width: 180px;
+}
+
+.low__bar-li > span > a {
+  color: #fb8500ff;
+  background-color: #023047ff;
+  text-decoration: none;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.high__bar-li {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border: 2px solid #fb8500ff;
+  color: #fb8500ff;
+  background-color: #023047ff;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: 'Courier New', Courier, monospace;
+  text-decoration: none;
+  cursor: pointer;
+  width: 200px;
+  height: 50px;
+  border-radius: 10px;
+  font-weight: 700;
+}
+
+.high__bar-li:nth-child(1) {
+  margin-left: 0;
+}
+
+.high__bar-li:nth-last-child(1) {
+  margin-right: 0;
+}
+
+.high__bar-li:hover {
+  background-color: #fb8500ff;
+  color: #023047ff;
+  border: 2px solid #023047ff;
+  transition: all 0.3s ease;
+}
+
+.high__bar-li a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 100%;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+
+.high__bar-menu {
+  position: absolute;
+  top: 100%;
+  left: -1px;
+  width: 200px;
+  height: 150px;
+  margin-top: 2px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+}
