@@ -140,3 +140,13 @@ body {
   align-items: center;
   z-index: 10;
 }
+
+.menu681Ref {
+  display: none;
+}
+
+@media screen and (max-width: 681px) {
+  .menu681Ref {
+    display: block;
+  }
+}

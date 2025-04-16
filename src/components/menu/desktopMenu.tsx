@@ -1,10 +1,9 @@
 import { Link } from "@tanstack/react-router";
-import { useAuth0 } from "@auth0/auth0-react";
+import type { User } from "@auth0/auth0-react";
 import { useState, useEffect, useRef } from "react";
 
 import Icon from "@mdi/react";
 import {
-  mdiLogin,
   mdiHome,
   mdiRhombusSplit,
   mdiBillboard,
@@ -13,10 +12,16 @@ import {
   mdiMenuClose,
   mdiFaceManProfile,
   mdiLogout,
+  mdiLogin,
 } from "@mdi/js";
 
-export default function Menu() {
-  const { user, loginWithRedirect, logout } = useAuth0();
+export default function DesktopMenu({ auth }: {
+  auth: {
+    user: User | null,
+    loginWithRedirect: () => Promise<void>,
+    logout: () => Promise<void>
+  }
+}) {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -59,7 +64,7 @@ export default function Menu() {
           Collection
         </Link>
       </div>
-      {user ? (
+      {auth.user ? (
         <>
           <div ref={menuRef} className="high__bar-li" onClick={() => setMenuOpen(!menuOpen)}>
             {!menuOpen ? <Icon path={mdiMenuOpen} size={0.7} /> : <Icon path={mdiMenuClose} size={0.7} />}
@@ -73,12 +78,12 @@ export default function Menu() {
                   </Link>
                 </div>
                 <div className="high__bar-li" onClick={() => setMenuOpen(false)}>
-                  <Link to="/profile/$userId" params={{ userId: user.sub?.slice(6) || "" }} >
+                  <Link to="/profile/$userId" params={{ userId: auth.user?.sub?.slice(6) || "" }} >
                     <Icon path={mdiFaceManProfile} size={0.7} />
                     Profile
                   </Link>
                 </div>
-                <div className="high__bar-li" onClick={() => { setMenuOpen(false); logout() }}>
+                <div className="high__bar-li" onClick={() => { setMenuOpen(false); auth.logout() }}>
                   <Icon path={mdiLogout} size={0.7} />
                   LogOut
                 </div>
@@ -87,7 +92,7 @@ export default function Menu() {
           </div>
         </>) : (
         <>
-          <div className="high__bar-li" onClick={() => loginWithRedirect()}>
+          <div className="high__bar-li" onClick={() => auth.loginWithRedirect()}>
             <Icon path={mdiLogin} size={0.7} />
             SignIn/SignUp
           </div>
